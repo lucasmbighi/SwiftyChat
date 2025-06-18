@@ -1,10 +1,3 @@
-//
-//  OnboardingPasswordFactory.swift
-//  SwiftChatTests
-//
-//  Created by Lucas Bighi on 09/06/25.
-//
-
 import SwiftUI
 
 final class OnboardingPasswordFactory {

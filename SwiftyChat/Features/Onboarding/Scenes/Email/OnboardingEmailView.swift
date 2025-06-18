@@ -1,10 +1,3 @@
-//
-//  OnboardingEmailView.swift
-//  SwiftChat
-//
-//  Created by Lucas Bighi on 09/06/25.
-//
-
 import SwiftUI
 
 struct OnboardingEmailView<ViewModel: OnboardingEmailViewModelProtocol>: View {
