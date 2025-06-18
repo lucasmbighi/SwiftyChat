@@ -1,10 +1,3 @@
-//
-//  SwiftyChatTests.swift
-//  SwiftyChatTests
-//
-//  Created by Lucas Bighi on 18/06/25.
-//
-
 import Testing
 @testable import SwiftyChat
 

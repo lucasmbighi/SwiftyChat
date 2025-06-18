@@ -1,10 +1,3 @@
-//
-//  SwiftyChatUITests.swift
-//  SwiftyChatUITests
-//
-//  Created by Lucas Bighi on 18/06/25.
-//
-
 import XCTest
 
 final class SwiftyChatUITests: XCTestCase {
