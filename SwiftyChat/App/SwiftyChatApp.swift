@@ -4,7 +4,7 @@ import SwiftUI
 struct SwiftyChatApp: App {
     var body: some Scene {
         WindowGroup {
-            EmptyView()
+            LoginCoordinator().start()
         }
     }
 }
