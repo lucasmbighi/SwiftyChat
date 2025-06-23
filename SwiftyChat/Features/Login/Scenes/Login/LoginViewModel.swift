@@ -10,7 +10,7 @@ protocol LoginViewModelProtocol: ObservableObject {
 }
 
 final class LoginViewModel: LoginViewModelProtocol {
-    private let coordinator: LoginCoordinator
+    private let coordinator: any LoginCoordinating
     private let repository: LoginRepositable
     
     @Published var email: String = ""
@@ -18,7 +18,7 @@ final class LoginViewModel: LoginViewModelProtocol {
     @Published var isLoggingIn: Bool = false
     @Published var errorMessage: String?
     
-    init(coordinator: LoginCoordinator, repository: LoginRepositable) {
+    init(coordinator: any LoginCoordinating, repository: LoginRepositable) {
         self.coordinator = coordinator
         self.repository = repository
     }
