@@ -16,7 +16,7 @@ struct OnboardingPasswordView<ViewModel: OnboardingPasswordViewModel>: View {
                     await viewModel.createAccount()
                 }
             }
-            .disabled(!viewModel.isValidPassowrd)
+            .disabled(!viewModel.isValidPassword)
         }
         .padding()
     }

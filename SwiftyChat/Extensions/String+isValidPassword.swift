@@ -1,7 +1,7 @@
 import Foundation
 
 extension String {
-    var isValidPassowrd: Bool {
+    var isValidPassword: Bool {
         self.count >= 6
     }
 }

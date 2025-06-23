@@ -2,7 +2,7 @@ import Foundation
 
 protocol OnboardingPasswordViewModelProtocol: ObservableObject {
     var password: String { get set }
-    var isValidPassowrd: Bool { get set }
+    var isValidPassword: Bool { get set }
     var isCreatingAccount: Bool { get set }
     
     func validatePassword()
@@ -14,7 +14,7 @@ final class OnboardingPasswordViewModel: OnboardingPasswordViewModelProtocol {
     private let repository: OnboardingPasswordRepositable
     
     @Published var password: String = ""
-    @Published var isValidPassowrd: Bool = false
+    @Published var isValidPassword: Bool = false
     @Published var isCreatingAccount: Bool = false
     
     init(coordinator: OnboardingCoordinator, repository: OnboardingPasswordRepositable) {
@@ -23,7 +23,7 @@ final class OnboardingPasswordViewModel: OnboardingPasswordViewModelProtocol {
     }
     
     func validatePassword() {
-        isValidPassowrd = password.isValidPassowrd
+        isValidPassword = password.isValidPassword
     }
     
     func createAccount() async {
