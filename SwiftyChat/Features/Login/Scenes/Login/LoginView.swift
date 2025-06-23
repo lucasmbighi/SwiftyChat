@@ -16,7 +16,7 @@ struct LoginView<ViewModel: LoginViewModelProtocol>: View {
             SecureField("Password", text: $viewModel.password)
                 .autocapitalization(.none)
                 .textFieldStyle(.roundedBorder)
-            
+
             Button {
                 Task {
                     await viewModel.login()
@@ -24,7 +24,7 @@ struct LoginView<ViewModel: LoginViewModelProtocol>: View {
             } label: {
                 Text("Login")
             }
-            .disabled(viewModel.email.isEmpty && viewModel.password.isEmpty)
+            .disabled(!viewModel.email.isValidEmail && !viewModel.password.isValidPassword)
         }
         .padding()
     }

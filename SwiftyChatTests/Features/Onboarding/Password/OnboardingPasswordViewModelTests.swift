@@ -6,14 +6,14 @@ final class OnboardingPasswordViewModelTests: XCTestCase {
         let sut = makeSUT()
         sut.password = "abc"
         sut.validatePassword()
-        XCTAssertFalse(sut.isValidPassowrd)
+        XCTAssertFalse(sut.isValidPassword)
     }
     
     func testValidEmail() {
         let sut = makeSUT()
         sut.password = "abc123"
         sut.validatePassword()
-        XCTAssertTrue(sut.isValidPassowrd)
+        XCTAssertTrue(sut.isValidPassword)
     }
     
     private func makeSUT() -> OnboardingPasswordViewModel {
