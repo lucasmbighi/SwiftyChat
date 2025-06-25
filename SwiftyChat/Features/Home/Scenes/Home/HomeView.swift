@@ -34,31 +34,84 @@ struct HomeView<ViewModel: HomeViewModelProtocol>: View {
                 }
                 Text(chat.messages.last?.content ?? "")
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .font(.body)
+                    .font(.subheadline)
             }
         }
-        .bold(chat.messages.last?.status == .read)
+        .bold(isFromCurrentUser && chat.messages.last?.status != .read)
         .onTapGesture {
             viewModel.goToChatDetail(chat)
         }
+        .swipeActions(edge: .leading, allowsFullSwipe: true, content: {
+            Button {
+                Task {
+                    await viewModel.delete(chat)
+                }
+            } label: {
+                Image(systemName: "trash")
+            }
+            .tint(.red)
+        })
     }
 
     private func image(of status: Message.Status) -> some View {
-        switch status {
-        case .sending:
-            Image(systemName: "clock")
-        case .sent:
-            Image(systemName: "paperplane")
-        case .delivered:
-            Image(systemName: "check")
-        case .read:
-            Image(systemName: "eye")
+        Group {
+            switch status {
+            case .sending:
+                Image(systemName: "clock")
+            case .sent:
+                Image(systemName: "checkmark")
+            case .delivered:
+                HStack(spacing: -10) {
+                    Image(systemName: "checkmark")
+                    Image(systemName: "checkmark")
+                }
+            case .read:
+                HStack(spacing: -10) {
+                    Image(systemName: "checkmark")
+                    Image(systemName: "checkmark")
+                }
+                .foregroundStyle(.blue)
+            }
         }
     }
 }
 
 #Preview {
-    let repository = HomeRepositoryMock()
+    let repository = HomeRepositoryMock(chats: [
+        Chat(
+            id: UUID(),
+            participants: [.mockAda, .mockLinus],
+            messages: [
+                Message(
+                    id: UUID(),
+                    sender: .mockAda,
+                    content: "Hello, Linus",
+                    date: .now,
+                    status: .sent
+                ),
+                Message(
+                    id: UUID(),
+                    sender: .mockLinus,
+                    content: "Hello, Ada",
+                    date: .now,
+                    status: .delivered
+                )
+            ]
+        ),
+        Chat(
+            id: UUID(),
+            participants: [.mockTuring, .mockLinus],
+            messages: [
+                Message(
+                    id: UUID(),
+                    sender: .mockTuring,
+                    content: "Hello, Linus",
+                    date: .now,
+                    status: .read
+                )
+            ]
+        )
+    ])
     let viewModel = HomeViewModel(
         coordinator: HomeCoordinator(),
         repository: repository,

@@ -5,7 +5,7 @@ protocol HomeViewModelProtocol: ObservableObject {
 
     func fetchChats() async
     func goToChatDetail(_ chat: Chat)
-    func delete(_ chat: Chat) async throws
+    func delete(_ chat: Chat) async
     func participant(of chat: Chat) -> User?
     func isFromCurrentUser(_ message: Message?) -> Bool
 }
@@ -16,6 +16,7 @@ final class HomeViewModel: HomeViewModelProtocol {
     private let loggedUser: User
     
     @Published var chats: [Chat] = []
+    @Published var errorMessage: String?
     
     init(coordinator: any HomeCoordinating, repository: HomeRepositable, loggedUser: User) {
         self.coordinator = coordinator
@@ -35,7 +36,7 @@ final class HomeViewModel: HomeViewModelProtocol {
         coordinator.goToChatDetail(chat)
     }
     
-    func delete(_ chat: Chat) async throws {
+    func delete(_ chat: Chat) async {
         do {
             try await repository.delete(chat)
         } catch {
