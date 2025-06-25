@@ -4,8 +4,10 @@ protocol HomeViewModelProtocol: ObservableObject {
     var chats: [Chat] { get set }
 
     func fetchChats() async
+    func goToChatDetail(_ chat: Chat)
     func delete(_ chat: Chat) async throws
     func participant(of chat: Chat) -> User?
+    func isFromCurrentUser(_ message: Message?) -> Bool
 }
 
 final class HomeViewModel: HomeViewModelProtocol {
@@ -23,12 +25,16 @@ final class HomeViewModel: HomeViewModelProtocol {
 
     func fetchChats() async {
         do {
-            try await repository.fetchChats()
+            chats = try await repository.fetchChats()
         } catch {
 
         }
     }
 
+    func goToChatDetail(_ chat: Chat) {
+        coordinator.goToChatDetail(chat)
+    }
+    
     func delete(_ chat: Chat) async throws {
         do {
             try await repository.delete(chat)
@@ -38,6 +44,11 @@ final class HomeViewModel: HomeViewModelProtocol {
     }
 
     func participant(of chat: Chat) -> User? {
-        chat.participants.first(where: { $0.id != loggedUser.id })
+        chat.participants.first(where: { $0 != loggedUser })
+    }
+
+    func isFromCurrentUser(_ message: Message?) -> Bool {
+        guard let message else { return true }
+        return message.sender == loggedUser
     }
 }
