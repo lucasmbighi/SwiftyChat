@@ -28,12 +28,7 @@ final class LoginViewModel: LoginViewModelProtocol {
             try await repository.login()
             coordinator.goToHome()
         } catch {
-            guard let loginError = error as? LoginError,
-                  let errorMessage = loginError.errorDescription else {
-                errorMessage = "Unknown error"
-                return
-            }
-            self.errorMessage = errorMessage
+          errorMessage = (error as? LoginError)?.errorDescription ?? "Unknown error"
         }
     }
 }
