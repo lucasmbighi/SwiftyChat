@@ -28,7 +28,7 @@ final class LoginViewModel: LoginViewModelProtocol {
             try await repository.login()
             coordinator.goToHome()
         } catch {
-            errorMessage = (error as? LoginError)?.errorDescription ?? "Unknown error"
+          errorMessage = (error as? LoginError)?.errorDescription ?? "Unknown error"
         }
     }
 }
