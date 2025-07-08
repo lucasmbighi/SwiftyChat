@@ -28,7 +28,7 @@ final class HomeViewModel: HomeViewModelProtocol {
         do {
             chats = try await repository.fetchChats()
         } catch {
-
+            errorMessage = (error as? ChatError)?.errorDescription ?? "Unknown error"
         }
     }
 
@@ -40,7 +40,7 @@ final class HomeViewModel: HomeViewModelProtocol {
         do {
             try await repository.delete(chat)
         } catch {
-
+            errorMessage = (error as? ChatError)?.errorDescription ?? "Unknown error"
         }
     }
 
